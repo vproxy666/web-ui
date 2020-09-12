@@ -1,0 +1,16 @@
+.topology { display: block; width:697px; height: 349px; overflow: hidden; position: relative; margin: 0 auto;}
+.topology .normal_client { position: absolute; left:19px; top:20px; width:134px; height: 22px; text-align: center; color:#D3B81E; font-size: 12px; font-weight: bold;  } 
+.topology .normal_request { position: absolute; left:0px; top:90px; width:220px; height: 22px; text-align: right; color:#D3B81E; font-size: 12px; font-weight: bold;  }
+.topology .origin_server { position: absolute; left:526px; top:5px; width:134px; height: 22px; text-align: center; color:#D3B81E; font-size: 12px; font-weight: bold;  } 
+.topology .internet { position: absolute; left:526px; top:238px; width:134px; height: 22px; text-align: center; color:#73C72A; font-size: 12px; font-weight: bold;  }
+.topology .proxy_client { position: absolute; left:19px; top:125px; width:134px; height: 22px; text-align: center; color:#73C72A; font-size: 12px; font-weight: bold;  }
+.topology .proxy_request { position: absolute; left:0px; top:200px; width:220px; height: 22px; text-align: right; color:#73C72A; font-size: 12px; font-weight: bold;  }
+.topology .manager { position: absolute; left:56px; top:239px; width:83px; height: 22px; text-align: center; color:#EA8165; font-size: 12px; font-weight: bold;  }
+.topology .http_port { position: absolute; left:340px; top:90px; width:100px; height: 22px; text-align: left; font-size: 12px; color:#00BCF2;  }
+.topology .https_port { position: absolute; left:340px; top:190px; width:100px; height: 22px; text-align: left; font-size: 12px; color:#00BCF2;  }
+.topology .secure_path { position: absolute; left:30px; top:310px; width:500px; height: 30px; text-align: left; color:#EA8165; font-size: 12px;  }
+.topology .origin_url { position: absolute; display: block; left:490px; top:100px; width:200px; height: 22px; text-align: center; color:#D3B81E; font-size: 12px;  }
+.topology .origin_url a {text-align: center;}
+.topology .certs { position: absolute; left:280px; top:168px; width:150px; height: 22px; text-align: left; font-size: 14px; color:#00BCF2; font-size: 12px;  }
+.wrapper { width:1200px; display: block; position: relative; margin: 0 auto; }
+

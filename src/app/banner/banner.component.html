@@ -1,0 +1,16 @@
+
+<ngb-alert [dismissible]="false" *ngIf="isHttp">
+    <strong>{{ 'BANNER.WARNING' | translate }}</strong>! 
+    {{ 'BANNER.INSECURE_HTTP' | translate }}
+
+    <span *ngIf="!sslCertificates || sslCertificates.length == 0" [innerHTML]="'BANNER.CONFIG_HTTPS' | translate"></span>
+    <span *ngIf="sslCertificates && sslCertificates.length > 0" >{{ 'BANNER.SWITCH_HTTPS' | translate }}</span>
+
+    <ul class="mb-0">
+        <li *ngFor="let sslCert of sslCertificates">
+            <a target="_blank" href="https://{{sslCert.domain}}:{{basicInfo.https_port}}{{basicInfo.console_path}}">
+                https://{{sslCert.domain}}:{{basicInfo.https_port}}{{basicInfo.console_path}}
+            </a>
+        </li>
+    </ul>
+</ngb-alert>

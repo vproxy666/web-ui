@@ -1,0 +1,94 @@
+<app-toasts-container aria-live="polite" aria-atomic="true"></app-toasts-container>
+
+
+<div class="card">
+    <div class="card-body pb-0">
+      <h4 class="card-title">
+          <i class="fa fa-users"></i>
+          {{ 'USER.TITLE' | translate }}
+        <small class="text-muted float-right">{{ 'USER.SUBTITLE' | translate }}</small>
+      </h4>
+      
+      <form>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="text-sm-center" style="width:70px">#</th>
+              <th scope="col" class="text-sm-center">{{ 'USER.USERNAME' | translate }}</th>
+              <th scope="col" class="text-sm-center">{{ 'USER.PASSWORD' | translate }}</th>
+              <th scope="col" class="text-sm-center">{{ 'USER.LEVEL' | translate }}</th>
+              <th scope="col" class="text-sm-center" style="width:70px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users; let idx = index" >
+              <th scope="row" class="text-sm-center">{{user.id}}</th>
+              <td class="text-sm-center">{{user.username}}</td>
+              <td class="text-sm-center">
+                <div class="input-group" *ngIf="!states[idx]" >
+                    <input type="text" class="form-control form-control-sm" readonly value="************" />
+                    <div class="input-group-append">
+                        <button class="btn btn-sm btn-outline-primary" type="button" (click)="states[idx] = !states[idx]">
+                            {{ 'USER.SHOW' | translate }}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-group" *ngIf="states[idx]" >
+                    <input type="text" name="password_{{idx}}" class="form-control form-control-sm" [ngModel]="user.password" readonly />
+                    <div class="input-group-append">
+                      <button class="btn btn-sm btn-outline-primary" type="button" (click)="states[idx] = !states[idx]">
+                          {{ 'USER.HIDE' | translate }}
+                      </button>
+                  </div>
+                </div>
+              </td>
+              <td class="text-sm-center">
+                  <span *ngIf="user.level == 0">{{ 'USER.DISABLED' | translate }}</span>
+                  <span *ngIf="user.level == 1">{{ 'USER.USER' | translate }}</span>
+                  <span *ngIf="user.level == 2">{{ 'USER.ADMIN' | translate }}</span>
+              </td>
+              <td  class="text-sm-center">
+                <button type="button" class="btn btn-sm btn-danger" title="{{ 'USER.TOOLTIP_DEL' | translate }}" (click)="deleteUser($event.target, user.id)">
+                  <i class="normal-icon fa fa-trash-alt"></i>
+                  <i class="loading-icon spinner-border spinner-border-sm text-light"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td>
+                <input type="text" class="form-control form-control-sm is-invalid" placeholder="{{ 'USER.USERNAME' | translate }}"
+                [(ngModel)]="username" name="username" 
+                [ngClass]="{'is-invalid' : isFormValidated && !username, 'is-valid' : username }"/>
+              </td>
+              <td>
+                <input type="password" class="form-control form-control-sm is-invalid" placeholder="{{ 'USER.PASSWORD' | translate }}"
+                    [(ngModel)]="password" name="password" 
+                    [ngClass]="{'is-invalid' : isFormValidated && !password, 'is-valid' : password }"/>
+              </td>
+              <td>
+                <div class="btn-block btn-group btn-group-sm btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="level">
+                    <label ngbButtonLabel class="btn-primary">
+                        <input ngbButton type="radio" [value]="1"> {{ 'USER.USER2' | translate }}
+                    </label>
+                    <label ngbButtonLabel class="btn-primary">
+                        <input ngbButton type="radio" value="2"> {{ 'USER.ADMIN' | translate }}
+                    </label>
+                </div>
+              </td>
+              <td class="text-sm-center">
+                <button type="submit" class="btn btn-sm btn-primary" title="{{ 'USER.TOOLTIP_ADD' | translate }}" (click)="addUser($event.target)">
+                  <i class="normal-icon fa fa-plus"></i>
+                  <i class="loading-icon spinner-border spinner-border-sm text-light"></i>
+                </button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </form>
+    </div>
+</div>
+

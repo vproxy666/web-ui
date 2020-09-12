@@ -1,0 +1,211 @@
+<app-banner></app-banner>
+<app-toasts-container aria-live="polite" aria-atomic="true"></app-toasts-container>
+
+<div class="card mb-2">
+  <div class="card-body pb-2">
+    <h4 class="card-title">
+        <i class="fa fa-network-wired"></i>
+        {{ 'NETWORK.TITLE' | translate }}
+      <small class="text-muted float-right">{{ 'NETWORK.SUBTITLE' | translate }}</small>
+    </h4>
+    <hr />
+
+    <form class="form">
+      <div class="form-row mb-3">
+        <div class="col-2  align-self-center">
+          <span for="http_port_input">{{ 'NETWORK.HTTP_PORT' | translate }}</span>
+        </div>
+        <div class="col-3">
+          <span class="form-control form-control-sm text-right">
+            {{basicInfo.http_port}}
+          </span>
+        </div>
+        <div class="col-7 align-self-center">
+          <i class="fa fa-info-circle text-primary" style="font-size: 12px;"> </i>&nbsp;
+          <small class="text-muted" [innerHTML]="'NETWORK.HTTP_PORT_TIP' | translate">
+          </small>
+        </div>
+      </div>
+
+      <div class="form-row mb-3">
+        <div class="col-2  align-self-center">
+          <span for="htts_port_input">{{ 'NETWORK.HTTPS_PORT' | translate }}</span>
+        </div>
+        <div class="col-3">
+          <span class="form-control form-control-sm text-right">
+            {{basicInfo.https_port}}
+          </span>
+        </div>
+        <div class="col-7 align-self-center">
+          <i class="fa fa-info-circle text-primary" style="font-size: 12px;"> </i>&nbsp;
+          <small class="text-muted" [innerHTML]="'NETWORK.HTTPS_PORT_TIP' | translate">
+          </small>
+        </div>
+      </div>
+
+      <div class="form-row mb-3">
+        <div class="col-2  align-self-center">
+          <span for="origin_url_input">{{ 'NETWORK.ORIGIN_URL' | translate }}</span>
+        </div>
+        <div class="col-3">
+          <input type="text" id="origin_url_input" name="origin_url" [(ngModel)]="basicInfo.origin_url" class="form-control-sm form-control"
+            placeholder="http://domain:port/" />
+        </div>
+        <div class="col-7 align-self-center">
+          <i class="fa fa-info-circle text-primary" style="font-size: 12px;"> </i>&nbsp;
+          <small class="text-muted" [innerHTML]="'NETWORK.ORIGIN_URL_TIP' | translate">
+          </small>
+        </div>
+      </div>
+
+
+      <div class="form-row mb-1">
+        <div class="col-2  align-self-center">
+          <span for="origin_url_input">{{ 'NETWORK.DISGUISE_MODE' | translate }}</span>
+        </div>
+        <div class="col-8">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="disguise_switch" name="disguise_mode" [(ngModel)]="basicInfo.disguise_mode" />
+            <label class="custom-control-label" for="disguise_switch">{{ 'NETWORK.DISGUISE_MODE_TEXT' | translate }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-row" *ngIf="basicInfo.disguise_mode !== true">
+        <div class="col-2  align-self-center"></div>
+        <div class="col-6">
+          <div class="alert alert-warning" role="alert" [innerHTML]="'NETWORK.DISGUISE_MODE_WARN' | translate"> </div>
+        </div>
+      </div>
+
+
+      <div class="form-row mt-2 mb-1">
+        <div class="col-2  align-self-center">
+          <span for="origin_url_input">{{ 'NETWORK.ENABLE_HTTP' | translate }}</span>
+        </div>
+        <div class="col-8">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="enable_http_proxy" name="enable_http_proxy" [(ngModel)]="basicInfo.http_proxy" />
+            <label class="custom-control-label" for="enable_http_proxy">{{ 'NETWORK.ENABLE_HTTP_TEXT' | translate }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row mt-2 mb-1">
+        <div class="col-2  align-self-center">
+          <span for="origin_url_input">{{ 'NETWORK.ENABLE_HTTPS' | translate }}</span>
+        </div>
+        <div class="col-8">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" readonly checked />
+            <label class="custom-control-label">{{ 'NETWORK.ENABLE_HTTPS_TEXT' | translate }}</label>
+          </div>
+        </div>
+      </div>
+      
+
+
+      <div class="form-row">
+        <div class="col-2  align-self-center">
+        </div>
+        <div class="col-3 text-right">
+          <button type="submit" class="btn btn-sm btn-primary" title="{{ 'SSL.BUTTON_CHANGE' | translate }}" (click)="updateSettings($event.target)">
+            <i class="normal-icon fa fa-upload"></i>
+            <i class="loading-icon spinner-border spinner-border-sm float-left mt-1 mr-1"></i>
+            {{ 'NETWORK.BUTTON_CHANGE' | translate }}
+          </button>
+        </div>
+      </div>
+
+      
+
+    </form>
+
+  </div>
+  
+</div>
+
+<div class="card">
+    <div class="card-body pb-0">
+      <h4 class="card-title">
+          <i class="fa fa-shield-alt"></i>
+          {{ 'SSL.TITLE' | translate }}
+        <small class="text-muted float-right">
+          <button type="button" class="btn btn-sm btn-info" title="{{ 'SSL.TOOLTIP_DEL' | translate }}" (click)="showLetsencryptDlg()">
+            <i class="fa fa-plus"></i>
+           {{ 'SSL.REQUEST_SSL' | translate }}
+          </button>
+
+        </small>
+      </h4>
+      
+      <form>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="text-sm-center">#</th>
+              <th scope="col" class="text-sm-center">{{ 'SSL.DOMAIN' | translate }}</th>
+              <th scope="col" class="text-sm-center">{{ 'SSL.SUBJECT' | translate }}</th>
+              <th scope="col" class="text-sm-center">{{ 'SSL.ISSUER' | translate }}</th>
+              <th scope="col" class="text-sm-center">{{ 'SSL.VALIDITY' | translate }}</th>
+              <th scope="col" class="text-sm-center" style="width:70px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sslCertificate of sslCertificates" >
+              <th scope="row" class="text-sm-center">{{sslCertificate.id}}</th>
+              <td class="text-sm-center">{{sslCertificate.domain}}</td>
+              <td class="text-sm-center">{{sslCertificate.subject}}</td>
+              <td class="text-sm-center">{{sslCertificate.issuer}}</td>
+              <td class="text-sm-center">{{sslCertificate.valid_from | date : 'yyyy-MM-dd'}} - {{sslCertificate.valid_to | date : 'yyyy-MM-dd'}}</td>
+              <td  class="text-sm-center">
+                <button type="button" class="btn btn-sm btn-danger" title="{{ 'SSL.TOOLTIP_DEL' | translate }}" (click)="deleteSslCertificate($event.target, sslCertificate.id)">
+                  <i class="normal-icon fa fa-trash-alt"></i>
+                  <i class="loading-icon spinner-border spinner-border-sm text-light"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2">
+                <input type="text" class="form-control form-control-sm is-invalid" placeholder="{{ 'SSL.DOMAIN' | translate }}"
+                [(ngModel)]="sslDomain" name="sslDomain" 
+                [ngClass]="{'is-invalid' : isSslFormValidated && !sslDomain, 'is-valid' : sslDomain }"/>
+              </td>
+              <td colspan="3">
+                <div class="row">
+                  <div class="col">
+                    <div class="custom-file">
+                      <input required type="file" class="custom-file-input form-control-sm" id="sslCert" accept=".crt;*.pem" 
+                        (change)="selectCertificate($event.target.files)"
+                        [ngClass]="{'is-invalid' : isSslFormValidated && !sslCert, 'is-valid' : sslCert }"/>
+                      <label for="sslCert" class="custom-file-label custom-file-label-sm">
+                        {{ (sslCert && sslCert.name) || 'SSL.CERT' | translate }}
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="custom-file">
+                      <input required type="file" class="custom-file-input form-control-sm" id="sslKey"  accept=".key;*.pem" 
+                        (change)="selectPrivateKey($event.target.files)"
+                        [ngClass]="{'is-invalid' : isSslFormValidated && !sslKey, 'is-valid' : sslKey }"/>
+                      <label for="sslKey" class="custom-file-label custom-file-label-sm">
+                        {{ (sslKey && sslKey.name) || 'SSL.KEY' | translate }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="text-sm-center">
+                <button type="submit" class="btn btn-sm btn-primary" title="{{ 'SSL.TOOLTIP_ADD' | translate }}" (click)="addSslCertificate($event.target)">
+                  <i class="normal-icon fa fa-upload"></i>
+                  <i class="loading-icon spinner-border spinner-border-sm text-light"></i>
+                </button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </form>
+    </div>
+</div>
+

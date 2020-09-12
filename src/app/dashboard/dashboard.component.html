@@ -1,0 +1,90 @@
+<app-toasts-container aria-live="polite" aria-atomic="true"></app-toasts-container>
+
+<div class="card" style="max-width:740px">
+    <div class="card-body pb-0">
+      <h4 class="card-title">
+          <i class="fa fa-map-signs"></i>
+          {{ 'TOPOLOGY.TITLE' | translate }}
+        <small class="text-muted float-right">{{ 'TOPOLOGY.SUBTITLE' | translate }}</small>
+      </h4>
+
+        <div class="topology" [ngStyle]="{ 'background-image' : 'url(' + baseHref + 'assets/topology.jpg)' }">
+
+            <div class="normal_client">
+                {{ 'TOPOLOGY.NORMAL_CLIENT' | translate }} 
+            </div>
+
+            <div class="normal_request">
+                {{ 'TOPOLOGY.NORMAL_REQUEST' | translate }} 
+            </div>
+
+            <div class="origin_server">
+                {{ 'TOPOLOGY.ORIGIN_SERVER' | translate }} 
+            </div>
+
+            <div class="proxy_client">
+                {{ 'TOPOLOGY.PROXY_CLIENT' | translate }} 
+            </div>
+
+            <div class="proxy_request">
+                {{ 'TOPOLOGY.PROXY_REQUEST' | translate }} 
+            </div>
+
+            <div class="internet">
+                {{ 'TOPOLOGY.INTERNET' | translate }} 
+            </div>
+
+            <div class="manager">
+                {{ 'TOPOLOGY.MANAGER' | translate }} 
+            </div>
+            
+            <div class="http_port text-monospace">
+                <ng-template #tipHttpPort>
+                    <div style="white-space: nowrap;">
+                        {{ 'TOPOLOGY.PARAMETER' | translate }} <code>--http-port</code> &nbsp;
+                    </div>
+                </ng-template>
+                <a href="javascript:void(0)" placement="right" [ngbTooltip]="tipHttpPort">
+                    {{ 'TOPOLOGY.PORT' | translate }}:{{basicInfo.http_port}} <i class="fa fa-info-circle" style="font-size: 12px;"></i>
+                </a>
+            </div>
+
+            <div class="https_port text-monospace">
+                <ng-template #tipHttpsPort>
+                    <div style="white-space: nowrap;">
+                        {{ 'TOPOLOGY.PARAMETER' | translate }} <code>--https-port</code> &nbsp;
+                    </div>
+                </ng-template>
+                <a href="javascript:void(0)" placement="right" [ngbTooltip]="tipHttpsPort">
+                    {{ 'TOPOLOGY.PORT' | translate }}:{{basicInfo.https_port}} <i class="fa fa-info-circle" style="font-size: 12px;"></i>
+                </a>
+            </div>
+
+            <div class="certs text-monospace">
+                <a routerLink="/settings" routerLinkActive="active">
+                    <i class="fa fa-certificate" style="font-size: 12px;"></i>{{basicInfo.certificate_num }} {{'TOPOLOGY.CERTIFICATES' | translate}}
+                </a>
+            </div>
+
+            <div class="secure_path text-monospace">
+                <span>{{ 'TOPOLOGY.SECURE_PATH' | translate }} : </span>
+                {{basicInfo.console_path}}
+            </div>
+
+
+            <div class="origin_url  text-monospace">
+                <a routerLink="/settings" routerLinkActive="active">
+                    <i class="fa fa-wrench"></i>
+                    {{basicInfo.origin_url || 'TOPOLOGY.UNSET' | translate }}
+                </a>
+            </div>
+        </div>
+
+        
+
+
+        
+
+    </div>
+ 
+</div>
